@@ -1,5 +1,5 @@
-﻿using ContosoUniversity.DAL;
-using Torc.Assesment.Entities.Models;
+﻿using Torc.Assesment.Entities.Models;
+using TorcAssesment.Dal;
 
 namespace Torc.Assesment.Dal
 {

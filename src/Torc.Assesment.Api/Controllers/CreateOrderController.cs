@@ -15,12 +15,11 @@ namespace Torc.Assesment.Api.Controllers
             _orderRepository = orderRepository;
         }
 
-        [HttpPost]
         /// <summary>
-        /// Recebe a carga de mailing (Entidade Mailing)
-        /// Retorna http status code 204 se não hover nenhuma consistência no JSON enviado
+        /// Create new order
         /// </summary>
-        /// <param name="mailingModel"></param>
+        /// <param name="createOrderModel"></param>
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

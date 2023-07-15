@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq.Expressions;
 using Torc.Assesment.Entities.Models;
 
-namespace ContosoUniversity.DAL
+namespace TorcAssesment.Dal
 {
     public class GenericRepository<TEntity> where TEntity : class
     {
@@ -17,8 +17,8 @@ namespace ContosoUniversity.DAL
         }
 
         public async virtual Task<IEnumerable<TEntity>> GetAsync(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "")
         {
             IQueryable<TEntity> query = dbSet;
