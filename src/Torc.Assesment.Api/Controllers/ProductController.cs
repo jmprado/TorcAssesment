@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Torc.Assesment.Dal;
-using Torc.Assesment.Entities.Models;
 using Torc.Assesment.Entities.ViewModel;
 
 namespace Torc.Assesment.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _productRepository;

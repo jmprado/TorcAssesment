@@ -4,7 +4,10 @@ using Torc.Assesment.Entities.ViewModel;
 
 namespace Torc.Assesment.Dal
 {
-    internal class ProductRepository : IProductRepository, IDisposable
+    /// <summary>
+    /// Product repository using unity of work pattern
+    /// </summary>
+    public class ProductRepository : IProductRepository, IDisposable
     {
         private readonly IUnityOfWork _unityOfWork;
         private readonly IMapper _mapper;

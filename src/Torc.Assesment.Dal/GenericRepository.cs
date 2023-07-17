@@ -5,6 +5,10 @@ using Torc.Assesment.Entities.Models;
 
 namespace TorcAssesment.Dal
 {
+    /// <summary>
+    /// Unity of work generic repository
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public class GenericRepository<TEntity> where TEntity : class
     {
         internal TorcAssesmentContext _dbContext;

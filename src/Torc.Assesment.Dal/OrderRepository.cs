@@ -3,6 +3,9 @@ using Torc.Assesment.Entities.ViewModel;
 
 namespace Torc.Assesment.Dal
 {
+    /// <summary>
+    /// Order repository using unity of work pattern
+    /// </summary>
     public class OrderRepository : IOrderRepository, IDisposable
     {
         private readonly TorcAssesmentContext _dbContext;

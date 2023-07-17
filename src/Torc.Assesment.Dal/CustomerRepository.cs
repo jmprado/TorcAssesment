@@ -3,6 +3,10 @@ using Torc.Assesment.Entities.Models;
 
 namespace Torc.Assesment.Dal
 {
+    /// <summary>
+    /// No unity of work here - Sample of common way to create a repository without using 
+    /// unity of work pattern
+    /// </summary>
     internal class CustomerRepository : ICustomerRepository, IDisposable
     {
         private readonly TorcAssesmentContext _dbContext;

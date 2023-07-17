@@ -4,6 +4,10 @@ using Torc.Assesment.Entities.ViewModel;
 
 namespace TorcAssesment.BusinessLogic
 {
+    /// <summary>
+    /// Sample for using a business logic layer to isolate the database access from the 
+    /// view layer
+    /// </summary>
     public class Orders : IOrders, IDisposable
     {
         private readonly IOrderRepository _orderRepository;
