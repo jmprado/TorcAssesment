@@ -1,4 +1,4 @@
-﻿namespace Torc.Assesment.Entities.Models
+﻿namespace Torc.Assesment.Entities.ViewModel
 {
     public class CreateOrderModel
     {

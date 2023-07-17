@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Net.NetworkInformation;
 using Torc.Assesment.Entities.Models;
+using Torc.Assesment.Entities.ViewModel;
 
 namespace Torc.Assesment.Dal
 {
@@ -28,13 +29,13 @@ namespace Torc.Assesment.Dal
             return await _unityOfWork.ProductRepository.GetByIdAsync(id);
         }
 
-        public async Task InsertAsync(Product Product)
+        public async Task InsertAsync(ProductModel product)
         {
-            await _unityOfWork.ProductRepository.InsertAsync(Product);
+            await _unityOfWork.ProductRepository.InsertAsync(product);
             await _unityOfWork.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Product product)
+        public async Task UpdateAsync(ProductModel product)
         {
             _unityOfWork.ProductRepository.Update(product);
             await _unityOfWork.SaveChangesAsync();

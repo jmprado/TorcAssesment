@@ -1,4 +1,5 @@
 ﻿using Torc.Assesment.Entities.Models;
+using Torc.Assesment.Entities.ViewModel;
 
 namespace Torc.Assesment.Dal
 {
@@ -48,7 +49,5 @@ namespace Torc.Assesment.Dal
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Torc.Assesment.Entities.Models;
+using Torc.Assesment.Entities.ViewModel;
 
 namespace Torc.Assesment.Dal
 {
@@ -6,8 +7,8 @@ namespace Torc.Assesment.Dal
     {
         Task<IEnumerable<Product>> GetAllAsync();
         Task<Product?> GetProductByIdAsync(int id);
-        Task InsertAsync(Product product);
-        Task UpdateAsync(Product product);
+        Task InsertAsync(ProductModel product);
+        Task UpdateAsync(ProductModel product);
         Task DeleteAsync(int id);
     }
 }
