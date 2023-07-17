@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Torc.Assesment.Dal;
-using Torc.Assesment.Entities.Models;
+using Torc.Assesment.Entities.ViewModel;
 
 namespace Torc.Assesment.Api.Validators
 {

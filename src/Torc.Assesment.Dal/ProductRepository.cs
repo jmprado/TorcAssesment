@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Net.NetworkInformation;
+﻿using AutoMapper;
 using Torc.Assesment.Entities.Models;
 using Torc.Assesment.Entities.ViewModel;
 
@@ -8,15 +7,17 @@ namespace Torc.Assesment.Dal
     internal class ProductRepository : IProductRepository, IDisposable
     {
         private readonly IUnityOfWork _unityOfWork;
+        private readonly IMapper _mapper;
 
         public ProductRepository()
         {
             _unityOfWork = new UnityOfWork();
         }
 
-        public ProductRepository(IUnityOfWork unityOfWork)
+        public ProductRepository(IUnityOfWork unityOfWork, IMapper mapper)
         {
             _unityOfWork = unityOfWork;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync()
@@ -31,21 +32,24 @@ namespace Torc.Assesment.Dal
 
         public async Task InsertAsync(ProductModel product)
         {
-            await _unityOfWork.ProductRepository.InsertAsync(product);
+            var productInsert = _mapper.Map<Product>(product);
+            await _unityOfWork.ProductRepository.InsertAsync(productInsert);
             await _unityOfWork.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(ProductModel product)
         {
-            _unityOfWork.ProductRepository.Update(product);
+            var productUpdate = _mapper.Map<Product>(product);
+
+            _unityOfWork.ProductRepository.Update(productUpdate);
             await _unityOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
             await _unityOfWork.ProductRepository.DeleteAsync(id);
+            await _unityOfWork.SaveChangesAsync();
         }
-
 
         private bool disposed = false;
 

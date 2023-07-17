@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Torc.Assesment.Entities.Models;
+using Torc.Assesment.Entities.ViewModel;
 using TorcAssesment.BusinessLogic;
 
 namespace Torc.Assesment.Api.Controllers

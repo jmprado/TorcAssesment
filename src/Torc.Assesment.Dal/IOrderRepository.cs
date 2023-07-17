@@ -1,4 +1,5 @@
 ﻿using Torc.Assesment.Entities.Models;
+using Torc.Assesment.Entities.ViewModel;
 
 namespace Torc.Assesment.Dal
 {
