@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Torc.Assesment.Dal\Torc.Assesment.Dal.csproj" />
     <ProjectReference Include="..\Torc.Assesment.Entities\Torc.Assesment.Entities.csproj" />
+    <ProjectReference Include="..\TorcAssesment.BusinessLogic\TorcAssesment.BusinessLogic.csproj" />
   </ItemGroup>
 
 </Project>

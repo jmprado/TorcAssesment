@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Torc.Assesment.Dal;
 using Torc.Assesment.Entities.Models;
+using TorcAssesment.BusinessLogic;
 
 namespace Torc.Assesment.Api.Controllers
 {
@@ -8,11 +8,11 @@ namespace Torc.Assesment.Api.Controllers
     [ApiController]
     public class CreateOrderController : ControllerBase
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrders _orders;
 
-        public CreateOrderController(IOrderRepository orderRepository)
+        public CreateOrderController(IOrders orders)
         {
-            _orderRepository = orderRepository;
+            _orders = orders;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Torc.Assesment.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _orderRepository.ExecCreateOrderProcedure(createOrderModel);
+            await _orders.CreateOrder(createOrderModel);
             return StatusCode(201, "Order sucessfuly created");
         }
     }

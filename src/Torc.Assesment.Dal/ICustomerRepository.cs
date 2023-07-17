@@ -9,6 +9,5 @@ namespace Torc.Assesment.Dal
         Task InsertAsync(Customer customer);
         void UpdateAsync(Customer customer);
         Task DeleteAsync(int id);
-        Task SaveAsync();
     }
 }

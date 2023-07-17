@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Torc.Assesment.Dal\Torc.Assesment.Dal.csproj" />
+    <ProjectReference Include="..\Torc.Assesment.Entities\Torc.Assesment.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

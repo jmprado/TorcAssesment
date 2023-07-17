@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Torc.Assesment.Api.Validators;
 using Torc.Assesment.Dal;
 using Torc.Assesment.Entities.Models;
+using TorcAssesment.BusinessLogic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IValidator<CreateOrderModel>, CreateOrderValidator>();
+builder.Services.AddScoped<IOrders, Orders>();
 
 var app = builder.Build();
 

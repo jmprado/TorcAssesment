@@ -1,55 +1,50 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Net.NetworkInformation;
 using Torc.Assesment.Entities.Models;
 
 namespace Torc.Assesment.Dal
 {
     internal class ProductRepository : IProductRepository, IDisposable
     {
-        private readonly TorcAssesmentContext _dbContext;
+        private readonly IUnityOfWork _unityOfWork;
 
         public ProductRepository()
         {
-            _dbContext = new TorcAssesmentContext();
+            _unityOfWork = new UnityOfWork();
         }
 
-        public ProductRepository(TorcAssesmentContext dbContext)
+        public ProductRepository(IUnityOfWork unityOfWork)
         {
-            _dbContext = dbContext;
+            _unityOfWork = unityOfWork;
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return await _dbContext.Product.ToListAsync();
+            return await _unityOfWork.ProductRepository.GetAsync(); ;
         }
 
         public async Task<Product?> GetProductByIdAsync(int id)
         {
-            return await _dbContext.Product.FindAsync(id);
+            return await _unityOfWork.ProductRepository.GetByIdAsync(id);
         }
 
         public async Task InsertAsync(Product Product)
         {
-            await _dbContext.Product.AddAsync(Product);
+            await _unityOfWork.ProductRepository.InsertAsync(Product);
+            await _unityOfWork.SaveChangesAsync();
         }
 
-        public void UpdateAsync(Product Product)
+        public async Task UpdateAsync(Product product)
         {
-            _dbContext.Entry(Product).State = EntityState.Modified;
+            _unityOfWork.ProductRepository.Update(product);
+            await _unityOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var productToDelete = await GetProductByIdAsync(id);
-            if (productToDelete != null)
-            {
-                _dbContext.Product.Remove(productToDelete);
-            }
+            await _unityOfWork.ProductRepository.DeleteAsync(id);
         }
 
-        public async Task SaveAsync()
-        {
-            await _dbContext.SaveChangesAsync();
-        }
 
         private bool disposed = false;
 
@@ -57,10 +52,9 @@ namespace Torc.Assesment.Dal
         {
             if (!disposed)
                 if (disposing)
-                    _dbContext.Dispose();
+                    _unityOfWork.Dispose();
             disposed = true;
         }
-
 
         public void Dispose()
         {
