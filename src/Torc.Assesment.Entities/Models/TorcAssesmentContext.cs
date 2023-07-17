@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Torc.Assesment.Entities.Models
 {
@@ -16,6 +17,19 @@ namespace Torc.Assesment.Entities.Models
         public TorcAssesmentContext(DbContextOptions<TorcAssesmentContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                   .SetBasePath(Directory.GetCurrentDirectory())
+                   .AddJsonFile("appsettings.json")
+                   .Build();
+                var connectionString = configuration.GetConnectionString("TorcDb");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
 
         public virtual DbSet<Customer> Customer { get; set; }
