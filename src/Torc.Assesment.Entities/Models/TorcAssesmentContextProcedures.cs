@@ -46,42 +46,10 @@ namespace Torc.Assesment.Entities.Models
             _context = context;
         }
 
-        public virtual async Task<int> CreateOrderAsync(int? productId, int? customerId, int? quantity, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<OrderCreated> CreateOrderAsync(int? productId, int? customerId, int? quantity, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
-            var parameterreturnValue = new SqlParameter
-            {
-                ParameterName = "returnValue",
-                Direction = System.Data.ParameterDirection.Output,
-                SqlDbType = System.Data.SqlDbType.Int,
-            };
-
-            var sqlParameters = new []
-            {
-                new SqlParameter
-                {
-                    ParameterName = "productId",
-                    Value = productId ?? Convert.DBNull,
-                    SqlDbType = System.Data.SqlDbType.Int,
-                },
-                new SqlParameter
-                {
-                    ParameterName = "customerId",
-                    Value = customerId ?? Convert.DBNull,
-                    SqlDbType = System.Data.SqlDbType.Int,
-                },
-                new SqlParameter
-                {
-                    ParameterName = "quantity",
-                    Value = quantity ?? Convert.DBNull,
-                    SqlDbType = System.Data.SqlDbType.Int,
-                },
-                parameterreturnValue,
-            };
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[CreateOrder] @productId, @customerId, @quantity", sqlParameters, cancellationToken);
-
-            returnValue?.SetValue(parameterreturnValue.Value);
-
-            return _;
+            var spReturnedValue = await _context.OrderCreated.FromSqlInterpolated<OrderCreated>($"EXEC [dbo].[CreateOrder] {productId}, {customerId}, {quantity}").ToListAsync();
+            return spReturnedValue.First();
         }
     }
 }

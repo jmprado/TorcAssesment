@@ -35,6 +35,7 @@ namespace Torc.Assesment.Entities.Models
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<OrderCreated> OrderCreated {get;set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

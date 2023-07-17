@@ -21,9 +21,9 @@ namespace Torc.Assesment.Dal
         }
 
 
-        public async Task ExecCreateOrderProcedure(CreateOrderModel createOrderModel)
+        public async Task<OrderCreated> ExecCreateOrderProcedure(CreateOrderModel createOrderModel)
         {
-            await _dbContext.Procedures.CreateOrderAsync(createOrderModel.ProductId, createOrderModel.CustomerId, createOrderModel.Quantity);
+            return await _dbContext.Procedures.CreateOrderAsync(createOrderModel.ProductId, createOrderModel.CustomerId, createOrderModel.Quantity);
         }
 
         public async Task<IEnumerable<Order>> ListOrders()

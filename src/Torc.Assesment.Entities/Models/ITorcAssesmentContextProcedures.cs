@@ -12,6 +12,6 @@ namespace Torc.Assesment.Entities.Models
 {
     public partial interface ITorcAssesmentContextProcedures
     {
-        Task<int> CreateOrderAsync(int? productId, int? customerId, int? quantity, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<OrderCreated> CreateOrderAsync(int? productId, int? customerId, int? quantity, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
     }
 }

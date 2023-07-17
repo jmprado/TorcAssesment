@@ -5,7 +5,8 @@ namespace Torc.Assesment.Dal
 {
     public interface IOrderRepository
     {
-        Task ExecCreateOrderProcedure(CreateOrderModel createOrderModel);
+        Task<OrderCreated> ExecCreateOrderProcedure(CreateOrderModel createOrderModel);
         Task<IEnumerable<Order>> ListOrders();
+        void Dispose();
     }
 }

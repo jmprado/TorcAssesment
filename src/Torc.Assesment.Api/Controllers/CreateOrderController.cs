@@ -30,8 +30,8 @@ namespace Torc.Assesment.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _orders.CreateOrder(createOrderModel);
-            return StatusCode(201, "Order sucessfuly created");
+            var orderCreated = await _orders.CreateOrder(createOrderModel);
+            return StatusCode(201, orderCreated);
         }
     }
 }

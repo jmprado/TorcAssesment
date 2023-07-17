@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Assesment.Dal", "Torc.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Assesment.Api", "Torc.Assesment.Api\Torc.Assesment.Api.csproj", "{B3A5D3CD-15C5-4B97-A0E0-ADDF61763F48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorcAssesment.BusinessLogic", "TorcAssesment.BusinessLogic\TorcAssesment.BusinessLogic.csproj", "{5D9710F0-3447-47B0-A41F-58348A7C6EA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TorcAssesment.BusinessLogic", "TorcAssesment.BusinessLogic\TorcAssesment.BusinessLogic.csproj", "{5D9710F0-3447-47B0-A41F-58348A7C6EA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorcAssesment.Test", "TorcAssesment.Test\TorcAssesment.Test.csproj", "{C54AD93E-4C00-4738-9E49-49E919C27C45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5D9710F0-3447-47B0-A41F-58348A7C6EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D9710F0-3447-47B0-A41F-58348A7C6EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D9710F0-3447-47B0-A41F-58348A7C6EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54AD93E-4C00-4738-9E49-49E919C27C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54AD93E-4C00-4738-9E49-49E919C27C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54AD93E-4C00-4738-9E49-49E919C27C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54AD93E-4C00-4738-9E49-49E919C27C45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

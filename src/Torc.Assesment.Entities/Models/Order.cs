@@ -11,6 +11,7 @@ namespace Torc.Assesment.Entities.Models
         public int CustomerId { get; set; }
         public int ProductId { get; set; }
         public decimal Total { get; set; }
+        public DateTime Created { get; set; }
 
         public virtual Customer Customer { get; set; }
         public virtual Product Product { get; set; }
