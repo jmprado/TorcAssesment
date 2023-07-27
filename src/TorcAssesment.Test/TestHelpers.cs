@@ -1,13 +1,24 @@
 ﻿using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
+using Torc.Assesment.Api.Model;
 
 namespace TorcAssesment.Test
 {
     public static class TestHelpers
     {
+        public static readonly HttpClient _httpClient = new() { BaseAddress = new Uri("https://localhost:7210") };
         private const string _jsonMediaType = "application/json";
         private static readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
+
+        public static async Task<string> GetJwtToken()
+        {
+            var user = new User() { Username = "joaoprado", Password = "joaopassword" };
+            var response = await _httpClient.PostAsync("/api/security", TestHelpers.GetJsonStringContent(user));
+
+            return await response.Content.ReadAsStringAsync();
+        }
+
 
         public static async Task AssertResponseWithContentAsync<T>(Stopwatch stopwatch,
                 HttpResponseMessage response, System.Net.HttpStatusCode expectedStatusCode,

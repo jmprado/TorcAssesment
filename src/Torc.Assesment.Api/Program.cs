@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Torc.Assesment.Api.Model;
 using Torc.Assesment.Api.Validators;
 using Torc.Assesment.Dal;
 using Torc.Assesment.Dal.Mapping;
@@ -21,6 +22,7 @@ builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IValidator<CreateOrderModel>, CreateOrderValidator>();
+builder.Services.AddScoped<IValidator<User>, UserValidator>();
 builder.Services.AddScoped<IOrders, Orders>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -88,7 +90,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

@@ -63,11 +63,11 @@ namespace Torc.Assesment.Api.Controllers
 
             await _productRepository.UpdateAsync(product);
 
-            return StatusCode(201, "Product sucessfuly updated");
+            return StatusCode(200, "Product sucessfuly updated");
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(int id)

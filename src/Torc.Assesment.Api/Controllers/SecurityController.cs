@@ -21,6 +21,9 @@ namespace Torc.Assesment.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CreateToken([FromBody] User user)
         {
             if (user.Username == "joaoprado" && user.Password == "joaopassword")

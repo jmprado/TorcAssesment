@@ -1,13 +1,24 @@
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using Torc.Assesment.Entities.Models;
 using Torc.Assesment.Entities.ViewModel;
 
 namespace TorcAssesment.Test
 {
-    public class ApiTest
+    public class CreateOrderApiTest
     {
-        private static readonly HttpClient _httpClient = new() { BaseAddress = new Uri("https://localhost:7210") };
+        private readonly string _jwtToken = string.Empty;
+        private readonly HttpClient _client;
+        public CreateOrderApiTest()
+        {
+            _jwtToken = TestHelpers.GetJwtToken().Result;
+            _client = TestHelpers._httpClient;
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
+        }
 
+        /// <summary>
+        /// This method also works as a integration test of the CreateOrder procedure
+        /// </summary>
         [Fact]
         public async void AssertCreateOrderSuccess()
         {
@@ -20,7 +31,7 @@ namespace TorcAssesment.Test
 
             var expectedStatusCode = System.Net.HttpStatusCode.Created;
 
-            var response = await _httpClient.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var response = await _client.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
             var responseValue = JsonConvert.DeserializeObject<OrderCreated>(await response.Content.ReadAsStringAsync());
 
             TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
@@ -30,6 +41,10 @@ namespace TorcAssesment.Test
             Assert.Equal(46.50m, responseValue.OrderTotal);
         }
 
+
+        /// <summary>
+        /// Minimum: test error handling for non existent products 
+        /// </summary>
         [Fact]
         public async void AssertCreateOrderFailProductNoExists()
         {
@@ -42,7 +57,7 @@ namespace TorcAssesment.Test
 
             var expectedStatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            var response = await _httpClient.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var response = await _client.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
 
             TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
             var errorMessage = await response.Content.ReadAsStringAsync();
@@ -50,6 +65,9 @@ namespace TorcAssesment.Test
         }
 
 
+        /// <summary>
+        /// Extra - Additional test for customer not exists CreateOrder fail
+        /// </summary>
         [Fact]
         public async void AssertCreateOrderFailCustomerNoExists()
         {
@@ -62,13 +80,17 @@ namespace TorcAssesment.Test
 
             var expectedStatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            var response = await _httpClient.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var response = await _client.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
 
             TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
             var errorMessage = await response.Content.ReadAsStringAsync();
             Assert.True(errorMessage.IndexOf("The customer id is required, be greater than zero and exists in the system records.") > 0);
         }
 
+
+        /// <summary>
+        /// Extra - Additional test for quantity invalid exists CreateOrder fail
+        /// </summary>
         [Fact]
         public async void AssertCreateOrderFailQuantityInvalid()
         {
@@ -81,7 +103,7 @@ namespace TorcAssesment.Test
 
             var expectedStatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            var response = await _httpClient.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var response = await _client.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
 
             TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
             var errorMessage = await response.Content.ReadAsStringAsync();
