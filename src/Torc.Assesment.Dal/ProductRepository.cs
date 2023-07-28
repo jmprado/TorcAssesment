@@ -29,19 +29,22 @@ namespace Torc.Assesment.Dal
             return await _unityOfWork.ProductRepository.GetByIdAsync(id);
         }
 
-        public async Task InsertAsync(ProductModel product)
+        public async Task<Product> InsertAsync(ProductModel product)
         {
             var productInsert = _mapper.Map<Product>(product);
             await _unityOfWork.ProductRepository.InsertAsync(productInsert);
             await _unityOfWork.SaveChangesAsync();
+            return productInsert;
         }
 
-        public async Task UpdateAsync(ProductModel product)
+        public async Task<Product> UpdateAsync(ProductModel product)
         {
             var productUpdate = _mapper.Map<Product>(product);
 
             _unityOfWork.ProductRepository.Update(productUpdate);
             await _unityOfWork.SaveChangesAsync();
+
+            return productUpdate;
         }
 
         public async Task DeleteAsync(int id)

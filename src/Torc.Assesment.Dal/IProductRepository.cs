@@ -7,8 +7,8 @@ namespace Torc.Assesment.Dal
     {
         Task<IEnumerable<Product>> GetAllAsync();
         Task<Product?> GetProductByIdAsync(int id);
-        Task InsertAsync(ProductModel product);
-        Task UpdateAsync(ProductModel product);
+        Task<Product> InsertAsync(ProductModel product);
+        Task<Product> UpdateAsync(ProductModel product);
         Task DeleteAsync(int id);
     }
 }
