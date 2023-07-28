@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Serilog;
 using Torc.Assesment.Entities.ViewModel;
 using TorcAssesment.BusinessLogic;
 
@@ -33,6 +35,7 @@ namespace Torc.Assesment.Api.Controllers
             }
 
             var orderCreated = await _orders.CreateOrder(createOrderModel);
+            Log.Information($"New order createad: {JsonConvert.SerializeObject(orderCreated)}");
             return StatusCode(201, orderCreated);
         }
     }

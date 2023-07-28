@@ -12,10 +12,6 @@ namespace Torc.Assesment.Dal
         private readonly IUnityOfWork _unityOfWork;
         private readonly IMapper _mapper;
 
-        public ProductRepository()
-        {
-            _unityOfWork = new UnityOfWork();
-        }
 
         public ProductRepository(IUnityOfWork unityOfWork, IMapper mapper)
         {

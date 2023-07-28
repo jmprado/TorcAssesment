@@ -14,10 +14,12 @@ namespace Torc.Assesment.Api.Controllers
     public class SecurityController : ControllerBase
     {
         private readonly IConfiguration _config;
+        private readonly ILogger _logger;
 
-        public SecurityController(IConfiguration config)
+        public SecurityController(IConfiguration config, ILogger logger)
         {
             _config = config;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -38,12 +40,12 @@ namespace Torc.Assesment.Api.Controllers
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                new Claim("Id", Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-                new Claim(JwtRegisteredClaimNames.Email, user.Username),
-                new Claim(JwtRegisteredClaimNames.Jti,
-                Guid.NewGuid().ToString())
-             }),
+                        new Claim("Id", Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                        new Claim(JwtRegisteredClaimNames.Email, user.Username),
+                        new Claim(JwtRegisteredClaimNames.Jti,
+                        Guid.NewGuid().ToString())
+                    }),
                     Expires = DateTime.UtcNow.AddMinutes(5),
                     Issuer = issuer,
                     Audience = audience,
@@ -55,8 +57,11 @@ namespace Torc.Assesment.Api.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var jwtToken = tokenHandler.WriteToken(token);
                 var stringToken = tokenHandler.WriteToken(token);
+                _logger.LogInformation($"Authorization success for user {user.Username}. JWT Token generated.");
                 return Ok(stringToken);
             }
+
+            _logger.LogWarning($"Authorization failed for user: {user.Username}");
             return Unauthorized();
         }
 
