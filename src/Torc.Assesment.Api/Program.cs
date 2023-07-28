@@ -31,8 +31,10 @@ try
     builder.Services.AddScoped<IOrderRepository, OrderRepository>();
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IValidator<CreateOrderModel>, CreateOrderValidator>();
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IValidator<User>, UserValidator>();
     builder.Services.AddScoped<IOrders, Orders>();
+
     builder.Services.AddAutoMapper(typeof(MappingProfile));
 
     builder.Services.AddSingleton<IConfiguration>(builder.Configuration);

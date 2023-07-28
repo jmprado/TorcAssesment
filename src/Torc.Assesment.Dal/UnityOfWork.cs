@@ -9,6 +9,7 @@ namespace Torc.Assesment.Dal
         private GenericRepository<Order>? _orderRepository;
         private GenericRepository<Product>? _productRepository;
         private GenericRepository<Customer>? _customerRepository;
+        private GenericRepository<User> _userRepository;
 
         public GenericRepository<Order> OrderRepository
         {
@@ -43,6 +44,18 @@ namespace Torc.Assesment.Dal
                     this._customerRepository = new GenericRepository<Customer>(_dbContext);
                 }
                 return _customerRepository;
+            }
+        }
+
+        public GenericRepository<User> UserRepository
+        {
+            get
+            {
+                if (this._userRepository == null)
+                {
+                    this._userRepository = new GenericRepository<User>(_dbContext);
+                }
+                return _userRepository;
             }
         }
 

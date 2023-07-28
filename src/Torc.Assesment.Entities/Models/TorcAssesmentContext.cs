@@ -34,8 +34,10 @@ namespace Torc.Assesment.Entities.Models
 
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderCreated> OrderCreated { get; set; }
         public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<OrderCreated> OrderCreated {get;set;}
+        public virtual DbSet<User> User { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,6 +78,26 @@ namespace Torc.Assesment.Entities.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Role)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingGeneratedProcedures(modelBuilder);

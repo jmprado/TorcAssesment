@@ -24,6 +24,15 @@ create table [Order] (
 )
 go
 
+CREATE TABLE [User](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [varchar](255) NOT NULL,
+	[Password] [varchar](255) NOT NULL,
+	[Role] [varchar](20) NOT NULL,
+ CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
+) ON [PRIMARY]
+GO
+
 alter table [Order]
    add constraint FK_CUSTOMER foreign key (CustomerId)
       references Customer (Id)

@@ -8,19 +8,25 @@ namespace TorcAssesment.Test
     public class CreateOrderApiTest
     {
         private readonly string _jwtToken = string.Empty;
-        private readonly HttpClient _client;
+        private readonly HttpClient _clientAdminRole;
+        private readonly HttpClient _clientClerkRole;
         public CreateOrderApiTest()
         {
-            _jwtToken = TestHelpers.GetJwtToken().Result;
-            _client = TestHelpers._httpClient;
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _jwtToken);
+            var jwtTokenAdminRole = TestHelpers.GetJwtTokenForAdminRole().Result;
+            var jwtTokenClerkRole = TestHelpers.GetJwtTokenForClerkRole().Result;
+
+            _clientAdminRole = TestHelpers._httpClientAdminRole;
+            _clientClerkRole = TestHelpers._httpClientClerkRole;
+
+            _clientAdminRole.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtTokenAdminRole);
+            _clientClerkRole.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtTokenClerkRole);
         }
 
         /// <summary>
         /// This method also works as a integration test of the CreateOrder procedure
         /// </summary>
         [Fact]
-        public async void AssertCreateOrderSuccess()
+        public async void AssertCreateOrderSuccessForAdminRole()
         {
             var createOrderModel = new CreateOrderModel
             {
@@ -31,7 +37,7 @@ namespace TorcAssesment.Test
 
             var expectedStatusCode = System.Net.HttpStatusCode.Created;
 
-            var response = await _client.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var response = await _clientAdminRole.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
             var responseValue = JsonConvert.DeserializeObject<OrderCreated>(await response.Content.ReadAsStringAsync());
 
             TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
@@ -41,6 +47,28 @@ namespace TorcAssesment.Test
             Assert.Equal(46.50m, responseValue.OrderTotal);
         }
 
+
+        [Fact]
+        public async void AssertCreateOrderSuccessForClerkRole()
+        {
+            var createOrderModel = new CreateOrderModel
+            {
+                ProductId = 3,
+                CustomerId = 2,
+                Quantity = 2
+            };
+
+            var expectedStatusCode = System.Net.HttpStatusCode.Created;
+
+            var response = await _clientClerkRole.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var responseValue = JsonConvert.DeserializeObject<OrderCreated>(await response.Content.ReadAsStringAsync());
+
+            TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
+            Assert.IsType<OrderCreated>(responseValue);
+            Assert.Equal("Torc Chainsaw", responseValue.ProductName);
+            Assert.Equal("Ramiro", responseValue.CustomerName);
+            Assert.Equal(102m, responseValue.OrderTotal);
+        }
 
         /// <summary>
         /// Minimum: test error handling for non existent products 
@@ -57,7 +85,7 @@ namespace TorcAssesment.Test
 
             var expectedStatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            var response = await _client.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var response = await _clientAdminRole.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
 
             TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
             var errorMessage = await response.Content.ReadAsStringAsync();
@@ -80,7 +108,7 @@ namespace TorcAssesment.Test
 
             var expectedStatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            var response = await _client.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var response = await _clientAdminRole.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
 
             TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
             var errorMessage = await response.Content.ReadAsStringAsync();
@@ -103,7 +131,7 @@ namespace TorcAssesment.Test
 
             var expectedStatusCode = System.Net.HttpStatusCode.BadRequest;
 
-            var response = await _client.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
+            var response = await _clientAdminRole.PostAsync("/api/createorder", TestHelpers.GetJsonStringContent(createOrderModel));
 
             TestHelpers.AssertCommonResponseParts(response, expectedStatusCode);
             var errorMessage = await response.Content.ReadAsStringAsync();

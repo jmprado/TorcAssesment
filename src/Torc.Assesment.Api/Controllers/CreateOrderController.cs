@@ -9,7 +9,7 @@ namespace Torc.Assesment.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Clerk")]
     public class CreateOrderController : ControllerBase
     {
         private readonly IOrders _orders;

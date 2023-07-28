@@ -8,6 +8,7 @@ namespace Torc.Assesment.Dal
         GenericRepository<Customer> CustomerRepository { get; }
         GenericRepository<Order> OrderRepository { get; }
         GenericRepository<Product> ProductRepository { get; }
+        GenericRepository<User> UserRepository { get; }
 
         Task SaveChangesAsync();
         void Dispose();

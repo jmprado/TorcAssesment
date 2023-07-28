@@ -7,18 +7,27 @@ namespace TorcAssesment.Test
 {
     public static class TestHelpers
     {
-        public static readonly HttpClient _httpClient = new() { BaseAddress = new Uri("https://localhost:7210") };
+        public static readonly HttpClient _httpClientClerkRole = new() { BaseAddress = new Uri("https://localhost:7210") };
+        public static readonly HttpClient _httpClientAdminRole = new() { BaseAddress = new Uri("https://localhost:7210") };
         private const string _jsonMediaType = "application/json";
         private static readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
-        public static async Task<string> GetJwtToken()
+        public static async Task<string> GetJwtTokenForAdminRole()
         {
-            var user = new User() { Username = "joaoprado", Password = "joaopassword" };
-            var response = await _httpClient.PostAsync("/api/security", TestHelpers.GetJsonStringContent(user));
+            var user = new User() { Username = "jprado", Password = "jpradopass" };
+            var response = await _httpClientAdminRole.PostAsync("/api/security", GetJsonStringContent(user));
 
             return await response.Content.ReadAsStringAsync();
         }
 
+
+        public static async Task<string> GetJwtTokenForClerkRole()
+        {
+            var user = new User() { Username = "isabel", Password = "isabelpass" };
+            var response = await _httpClientClerkRole.PostAsync("/api/security", GetJsonStringContent(user));
+
+            return await response.Content.ReadAsStringAsync();
+        }
 
         public static async Task AssertResponseWithContentAsync<T>(Stopwatch stopwatch,
                 HttpResponseMessage response, System.Net.HttpStatusCode expectedStatusCode,
