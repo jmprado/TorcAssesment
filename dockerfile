@@ -15,11 +15,10 @@ WORKDIR /app/src/Torc.Assesment.Api
 FROM build AS publish
 RUN dotnet publish "Torc.Assesment.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-FROM microsoft/mssql-server-windows-express
-COPY /app/create-db.sql .
+FROM microsoft/mssql-server
 ENV ACCEPT_EULA Y
 ENV SA_PASSWORD jmlcol
-RUN sqlcmd -i torc_assesment_db.sql
+RUN sqlcmd -i /app/sql_scripts/torc_assesment_db.sql
 
 FROM base AS final
 WORKDIR /app
