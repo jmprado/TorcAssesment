@@ -43,8 +43,6 @@ namespace Torc.Assesment.Api.Controllers
                 var keyString = jwtSection["Key"];
                 var key = Encoding.ASCII.GetBytes(keyString);
 
-
-
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
@@ -64,10 +62,11 @@ namespace Torc.Assesment.Api.Controllers
                 };
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var token = tokenHandler.CreateToken(tokenDescriptor);
-                var jwtToken = tokenHandler.WriteToken(token);
                 var stringToken = tokenHandler.WriteToken(token);
                 Log.Information($"Authorization success for user {user.Username} role {authUser.Role}. JWT Token generated.");
-                return Ok(stringToken);
+                var loggedUser = new LoggedUser { Id = authUser.Id, Username = authUser.Username, Role = authUser.Role, Token = stringToken };
+
+                return Ok(loggedUser);
             }
 
             Log.Warning($"Authorization failed for user: {user.Username}");
