@@ -1,1 +1,6 @@
-<app-login-form></app-login-form>
+<ng-template *ngIf="!loggedUser.isLogged">
+    <app-login-form></app-login-form>
+</ng-template>
+<ng-template *ngIf="loggedUser.isLogged">
+    <app-product-list></app-product-list>
+</ng-template>

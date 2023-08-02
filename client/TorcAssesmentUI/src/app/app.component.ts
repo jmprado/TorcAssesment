@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoggedUser } from './models/loggedUser';
+import { GlobalService } from './services/global-service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,9 @@ import { LoggedUser } from './models/loggedUser';
 })
 export class AppComponent {
   title = 'TorcAssesmentUI';
-  loggedUser!: LoggedUser;  
+  loggedUser!: LoggedUser;
+
+  constructor(private globalService: GlobalService) {
+    this.loggedUser = globalService.loggedUser.getValue();
+  }
 }

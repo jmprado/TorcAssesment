@@ -10,29 +10,16 @@ import axios from 'axios';
 export class LoginService {
   constructor(public http: HttpClient) {
 
-   }
+  }
   baseUrlApi = "https://localhost:7210/api";
   headerDict = {
-    'Content-type' : 'application/json', 
-    'Accept' : 'application/json'
+    'Content-type': 'application/json',
+    'Accept': 'application/json'
   }
-  
-  requestOptions = {                                                                                                                                                                                 
-    headers: new HttpHeaders(this.headerDict), 
-  };
 
-  loginUser(loginUser: LoginUser){
-      var url = `${this.baseUrlApi}/security`;
-      var body = JSON.stringify({'username': loginUser.username, 'password': loginUser.password});
-      return axios.post<LoggedUser>(url, body, { headers: this.headerDict });
-
-    /*return new Promise<LoggedUser>(resolve => {
-      (data => {
-        resolve(data);
-      },
-      err => {
-        console.log(err);
-      })
-    })*/    
+  loginUser(loginUser: LoginUser) {
+    const url = `${this.baseUrlApi}/security`;
+    const body = JSON.stringify({ 'username': loginUser.username, 'password': loginUser.password });
+    return axios.post<LoggedUser>(url, body, { headers: this.headerDict });
   }
 }

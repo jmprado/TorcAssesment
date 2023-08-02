@@ -15,4 +15,6 @@ export class GlobalService {
     token: "",
     isLogged: false
   });
+
+  public baseUrlApi: string = "https://localhost:7210/api";
 }
