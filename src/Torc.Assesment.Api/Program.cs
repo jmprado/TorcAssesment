@@ -14,6 +14,8 @@ using TorcAssesment.BusinessLogic;
 
 try
 {
+    string appName = "torc_assesment";
+
     var builder = WebApplication.CreateBuilder(args);
     builder.Configuration.AddJsonFile("logConfig.json");
 
@@ -22,6 +24,11 @@ try
     {
         configuration.ReadFrom.Configuration(hostContext.Configuration);
     });
+
+    builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    }));
 
     // Add services to the container.
     builder.Services.AddControllers();
@@ -89,6 +96,11 @@ try
         });
     });
 
+    builder.Services.AddCors(p => p.AddPolicy(appName, builder =>
+    {
+        builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+    }));
+
     var app = builder.Build();
     app.UseSerilogRequestLogging();
 
@@ -101,9 +113,9 @@ try
 
     app.UseHttpsRedirection();
 
-    app.UseAuthorization();
     app.UseAuthentication();
-
+    app.UseCors(appName);
+    app.UseAuthorization();
     app.MapControllers();
 
     Log.Information("Torc Assesment API host started");

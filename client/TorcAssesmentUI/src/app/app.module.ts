@@ -10,11 +10,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { HeaderComponent } from './user-dashboard/header/header.component';
+import { ProductListComponent } from './user-dashboard/product-list/product-list.component';
+import { OrderCreateComponent } from './user-dashboard/order-create/order-create.component';
+import { OrderListComponent } from './user-dashboard/order-list/order-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    UserDashboardComponent,
+    HeaderComponent,
+    ProductListComponent,
+    OrderCreateComponent,
+    OrderListComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

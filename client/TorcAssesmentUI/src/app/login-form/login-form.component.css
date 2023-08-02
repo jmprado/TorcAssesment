@@ -16,10 +16,8 @@
   }
 
   .error {
-    padding: 16px;
-    width: 300px;
-    color: white;
-    background-color: red;
+    padding: 2px 0px 10px 0px;
+    color: red;
   }
 
   .button {

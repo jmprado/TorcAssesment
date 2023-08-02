@@ -6,16 +6,18 @@
     <mat-form-field>
       <input type="text" matInput placeholder="Username" formControlName="username">
     </mat-form-field>
-    <div *ngIf="this.form.controls['username'].errors && this.form.controls['username'].dirty"
-      class="error" padding>Username required</div>    
+  
   </div>
   <div>
     <mat-form-field>
       <input type="password" matInput placeholder="Password" formControlName="password">
     </mat-form-field>
-    <div *ngIf="this.form.controls['password'].errors && this.form.controls['password'].dirty"
-      class="error" padding>Password required</div>
+
   </div>
+  <div *ngIf="this.form.controls['username'].errors && this.form.controls['username'].dirty"
+  class="error" padding>Username required</div>  
+  <div *ngIf="this.form.controls['password'].errors && this.form.controls['password'].dirty"
+  class="error" padding>Password required</div>
   <p *ngIf="error" class="error">
     {{ error }}
   </p>
