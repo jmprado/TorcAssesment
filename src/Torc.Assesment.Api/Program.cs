@@ -25,11 +25,6 @@ try
         configuration.ReadFrom.Configuration(hostContext.Configuration);
     });
 
-    builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
-    {
-        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-    }));
-
     // Add services to the container.
     builder.Services.AddControllers();
     builder.Services.AddFluentValidationAutoValidation();
