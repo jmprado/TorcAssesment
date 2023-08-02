@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Serilog;
@@ -10,6 +11,7 @@ namespace Torc.Assesment.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Clerk")]
+    [EnableCors]
     public class CreateOrderController : ControllerBase
     {
         private readonly IOrders _orders;

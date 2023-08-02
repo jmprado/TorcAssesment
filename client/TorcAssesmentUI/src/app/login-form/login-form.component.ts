@@ -25,18 +25,32 @@ export class LoginFormComponent implements OnInit {
   submit() {
     if (this.form?.valid) {
       const loginUser = new LoginUser(this.form.value);
-      this.loginService.loginUser(loginUser).then(data => {
+      if(loginUser){
+      this.loginService.loginUser(loginUser).then(response => {
+        const data = response.data;
         this.globalService.loggedUser.next({
           id: data.id,
           username: data.username,
           role: data.role,
-          token: data.token
+          token: data.token,
+          isLogged: true
         });
 
-        console.log(JSON.stringify(this.globalService.loggedUser.value));
+        this.error = '';        
 
-      });
+        console.log(JSON.stringify(this.globalService.loggedUser.value));
+      }).catch(error =>{
+        const reponseStatus = error.response.request.status;
+        if(reponseStatus === 401){
+          this.error = "Unauthorized";
+        }
+        else{
+          this.error = "Ops, something bad happened in this code.";
+          console.log(error);
+        }
+      });    
     }
+  }
   }
 
   @Input() error: string | null = null;

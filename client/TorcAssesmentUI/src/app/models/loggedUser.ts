@@ -3,4 +3,5 @@ export class LoggedUser{
     username!: string;
     role!: string;
     token!: string;
+    isLogged: boolean = false; 
 }
