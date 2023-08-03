@@ -10,6 +10,8 @@ export class ProductService {
 
   constructor(private globalService: GlobalService) { }
 
+  baseUrlApi = "https://localhost:7210/api";
+
   headerDict = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
@@ -22,7 +24,7 @@ export class ProductService {
   };
 
   listProducts() {
-    const url = `${this.globalService.baseUrlApi}/api/product`;
+    const url = `${this.baseUrlApi}/product`;
     return axios.get(url, { headers: this.headerDict });
   }
 

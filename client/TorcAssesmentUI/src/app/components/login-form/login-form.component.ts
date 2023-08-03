@@ -28,6 +28,7 @@ export class LoginFormComponent implements OnInit {
       if (loginUser) {
         this.loginService.loginUser(loginUser).then(response => {
           const data = response.data;
+
           this.globalService.loggedUser.next({
             id: data.id,
             username: data.username,
